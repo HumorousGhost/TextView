@@ -37,13 +37,13 @@ struct ContentView: View {
             .returnKeyAutomatically(true)
             .keyboardType(.asciiCapable)
             .isFirstResponder(true)
-            .onDidBegin({ _ in
+            .onDidBegin({
                 print("did begin editing")
             })
-            .onDidEnd({ _ in
+            .onDidEnd({
                 print("did end editing")
             })
-            .onShouldBegin({ _ in
+            .onShouldBegin({ in
                 print("shouldBeginEditing")
                 return true
             })
@@ -51,7 +51,7 @@ struct ContentView: View {
                 print("shouldEndEditing")
                 return true
             })
-            .onSubmit({ _, _, _ in
+            .onSubmit({ returnKeyType in
                 print("click keyboard input button")
                 return true
             })

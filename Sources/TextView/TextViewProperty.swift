@@ -106,5 +106,11 @@ public extension TextView {
         self.textView.isSelectable = selectable
         return self
     }
+    
+    /// text view is secure text entry
+    func isSecureTextEntry(_ secureTextEntry: Bool) -> Self {
+        self.textView.isSecureTextEntry = secureTextEntry
+        return self
+    }
 }
 

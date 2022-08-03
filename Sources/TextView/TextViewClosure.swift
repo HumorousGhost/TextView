@@ -14,13 +14,13 @@ import Foundation
 extension TextView {
     
     /// textViewDidBeginEditing
-    public func onDidBegin(_ begin: @escaping (UIViewType) -> Void) -> Self {
+    public func onDidBegin(_ begin: @escaping () -> Void) -> Self {
         self.model.didBegin = begin
         return self
     }
     
     /// textViewDidEndEditing
-    public func onDidEnd(_ end: @escaping (UIViewType) -> Void) -> Self {
+    public func onDidEnd(_ end: @escaping () -> Void) -> Self {
         self.model.didEnd = end
         return self
     }
@@ -28,25 +28,25 @@ extension TextView {
     /// textViewShouldChangeText
     /// Range
     /// ReplacementText
-    public func onSubmit(_ submit: @escaping (UIViewType, NSRange, String) -> Bool) -> Self {
+    public func onSubmit(_ submit: @escaping (ReturnKeyType) -> Bool) -> Self {
         self.model.shouldChangeText = submit
         return self
     }
     
     /// textViewShouldBeginEditing
-    public func onShouldBegin(_ shouldBegin: @escaping (UIViewType) -> Bool) -> Self {
+    public func onShouldBegin(_ shouldBegin: @escaping () -> Bool) -> Self {
         self.model.shouldBegin = shouldBegin
         return self
     }
     
     /// textViewShouldEndEditing
-    public func onShouldEnd(_ shouldEnd: @escaping (UIViewType) -> Bool) -> Self {
+    public func onShouldEnd(_ shouldEnd: @escaping () -> Bool) -> Self {
         self.model.shouldEnd = shouldEnd
         return self
     }
     
     /// textViewDidChangeSelection
-    public func onDidChangeSelection(_ didChangeSelection: @escaping (UIViewType) -> Void) -> Self {
+    public func onDidChangeSelection(_ didChangeSelection: @escaping () -> Void) -> Self {
         self.model.didChangeSelection = didChangeSelection
         return self
     }
@@ -55,7 +55,7 @@ extension TextView {
     /// InCharacter
     /// Range
     /// Interaction
-    public func onShouldInteractURL(_ shouldInteract: @escaping (UIViewType, URL, NSRange, TextItemInteraction) -> Bool) -> Self {
+    public func onShouldInteractURL(_ shouldInteract: @escaping (URL, NSRange, TextItemInteraction) -> Bool) -> Self {
         self.model.shouldInteractWithURL = shouldInteract
         return self
     }
@@ -64,7 +64,7 @@ extension TextView {
     /// shouldInteractWith textAttachment
     /// in characterRange
     /// interaction
-    public func onShouldInteractTextAttachment(_ shouldInteract: @escaping (UIViewType, TextAttachment, NSRange, TextItemInteraction) -> Bool) -> Self {
+    public func onShouldInteractTextAttachment(_ shouldInteract: @escaping (TextAttachment, NSRange, TextItemInteraction) -> Bool) -> Self {
         self.model.shouldInteractWithTextAttachment = shouldInteract
         return self
     }

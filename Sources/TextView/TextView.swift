@@ -1,13 +1,13 @@
 import SwiftUI
 
 @available(iOS 13.0, macOS 10.15, tvOS 13, watchOS 6, *)
-public typealias ViewType = UITextView
-
-@available(iOS 13.0, macOS 10.15, tvOS 13, watchOS 6, *)
 public typealias TextItemInteraction = UITextItemInteraction
 
 @available(iOS 13.0, macOS 10.15, tvOS 13, watchOS 6, *)
 public typealias TextAttachment = NSTextAttachment
+
+@available(iOS 13.0, macOS 10.15, tvOS 13, watchOS 6, *)
+public typealias ReturnKeyType = UIReturnKeyType
 
 @available(iOS 13.0, macOS 10.15, tvOS 13, watchOS 6, *)
 public struct TextView: UIViewRepresentable {
@@ -67,29 +67,29 @@ public struct TextView: UIViewRepresentable {
         }
         
         public func textViewDidBeginEditing(_ textView: UITextView) {
-            self.model.didBegin?(textView)
+            self.model.didBegin?()
         }
         
         public func textViewDidEndEditing(_ textView: UITextView) {
-            self.model.didEnd?(textView)
+            self.model.didEnd?()
         }
         
         public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-            return self.model.shouldBegin != nil ? self.model.shouldBegin!(textView) : true
+            return self.model.shouldBegin != nil ? self.model.shouldBegin!() : true
         }
         
         public func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-            return self.model.shouldEnd != nil ? self.model.shouldEnd!(textView) : true
+            return self.model.shouldEnd != nil ? self.model.shouldEnd!() : true
         }
         
         public func textViewDidChangeSelection(_ textView: UITextView) {
-            self.model.didChangeSelection?(textView)
+            self.model.didChangeSelection?()
         }
         
         public func textViewDidChange(_ textView: UITextView) {
             text.wrappedValue = textView.text
             guard self.model.didChange == nil else {
-                self.model.didChange?(textView)
+                self.model.didChange?()
                 return
             }
             // text center
@@ -112,7 +112,7 @@ public struct TextView: UIViewRepresentable {
                 return true
             }
             guard self.model.shouldChangeText == nil else {
-                return self.model.shouldChangeText!(textView, range, text)
+                return self.model.shouldChangeText!(textView.returnKeyType)
             }
             if textView.returnKeyType != .default {
                 if !textView.text.isEmpty {
@@ -136,14 +136,14 @@ public struct TextView: UIViewRepresentable {
             guard self.model.shouldInteractWithURL != nil else {
                 return false
             }
-            return self.model.shouldInteractWithURL!(textView, URL, characterRange, interaction)
+            return self.model.shouldInteractWithURL!(URL, characterRange, interaction)
         }
         
         public func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
             guard self.model.shouldInteractWithTextAttachment != nil else {
                 return false
             }
-            return self.model.shouldInteractWithTextAttachment!(textView, textAttachment, characterRange, interaction)
+            return self.model.shouldInteractWithTextAttachment!(textAttachment, characterRange, interaction)
         }
     }
 }
