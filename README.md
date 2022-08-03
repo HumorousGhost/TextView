@@ -28,9 +28,7 @@ import TextView
 struct ContentView: View {
     @State var text: String = ""
     var body: some View {
-        Text("Hello, world!")
-            .padding()
-        TextView($text, isSend: .constant(false), isTextCenter: true)
+        TextView($text, isTextCenter: true)
             .font(UIFont.systemFont(ofSize: 12))
             .foregroundColor(UIColor.yellow)
             .returnKeyType(.done)

@@ -17,26 +17,20 @@ public struct TextView: UIViewRepresentable {
     @Binding var text: String
     @Binding var isSend: Bool
     let isTextCenter: Bool
-    let width: CGFloat
-    let height: CGFloat
     let model = ClosureModel()
     
     public init(_ text: Binding<String>,
-                isSend: Binding<Bool>,
-                isTextCenter: Bool = false,
-                width: CGFloat = 0,
-                height: CGFloat = 0) {
+                isSend: Binding<Bool> = .constant(false),
+                isTextCenter: Bool = false) {
         self._text = text
         self._isSend = isSend
         self.isTextCenter = isTextCenter
-        self.width = width
-        self.height = height
     }
     
     let textView: UITextView = UITextView()
     
     public func makeUIView(context: Context) -> UITextView {
-        self.textView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        self.textView.frame = CGRect.zero
         self.textView.text = text
         self.textView.delegate = context.coordinator
         self.textView.textContainer.lineFragmentPadding = 0
