@@ -43,12 +43,12 @@ struct ContentView: View {
             .onDidEnd({
                 print("did end editing")
             })
-            .onShouldBegin({ in
-                print("shouldBeginEditing")
+            .onShouldBegin({
+                print("should begin editing")
                 return true
             })
-            .onShouldEnd({ _ in
-                print("shouldEndEditing")
+            .onShouldEnd({
+                print("should end editing")
                 return true
             })
             .onSubmit({ returnKeyType in
